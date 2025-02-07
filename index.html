@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background-image: url('file:///home/emermer/Pictures/Background/treefogmountain.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .datetime {
+            font-size: 4em;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .date {
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 25px;
+            padding: 5px;
+        }
+
+        .search-icon {
+            color: white;
+            font-size: 1em;
+            margin-right: 10px;
+            margin-left: 10px;
+        }
+
+        .divider {
+            width: 2px;
+            height: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .search-input {
+            padding: 10px;
+            width: 450px;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            color: white;
+            background-color: transparent;
+            margin-left: 5px;
+        }
+
+        .bookmark-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .bookmark {
+            margin: 15px;
+            padding: 15px;
+            background-color: rgba(20, 20, 20, 0.8);
+            border-radius: 50%;
+            text-decoration: none;
+            color: #0180d3;
+            font-size: 1.5em;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+        }
+
+        .bookmark i {
+            font-size: 1.5em;
+            color: #0180d3;
+        }
+
+        .bookmark:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="datetime" id="time"></div>
+    <div class="date" id="date"></div>
+
+    <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <div class="divider"></div>
+        <form action="https://www.google.com/search" method="get" onsubmit="return showCustomMessage();">
+            <input type="text" name="q" class="search-input" placeholder="Search" id="searchInput">
+        </form>
+    </div>
+
+    <div class="bookmark-container">
+        <a class="bookmark" href="https://www.youtube.com" title="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+        <a class="bookmark" href="https://www.fiverr.com" title="Fiverr">
+            <i class="fas fa-briefcase"></i>
+        </a>
+        <a class="bookmark" href="https://www.github.com" title="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a class="bookmark" href="https://www.openai.com/chatgpt" title="ChatGPT">
+            <i class="fas fa-code"></i>
+        </a>
+        <a class="bookmark" href="https://www.protondb.com" title="ProtonDB">
+            <i class="fas fa-gamepad"></i>
+        </a>
+        <a class="bookmark" href="https://aur.archlinux.org" title="AUR">
+            <i class="fas fa-archive"></i>
+        </a>
+        <a class="bookmark" href="https://wiki.hyprland.org" title="Hyprland Wiki">
+            <i class="fas fa-book"></i>
+        </a>
+    </div>
+
+    <script>
+        function updateDateTime() {
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }).replace(/(AM|PM)/, '');
+            const options = { weekday: 'long', month: 'long', day: 'numeric' };
+            const dateParts = now.toLocaleString('en-US', options).split(', ');
+            const dateFormatted = dateParts[0] + ' • ' + dateParts[1].replace(' ', ' • ');
+            document.getElementById('time').innerText = time;
+            document.getElementById('date').innerText = dateFormatted;
+        }
+
+        function showCustomMessage() {
+            const input = document.getElementById('searchInput');
+            if (!input.value) {
+                alert("Type to search");
+                return false;
+            }
+            return true;
+        }
+
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
+    </script>
+
+</body>
+</html>
+
